@@ -1,5 +1,9 @@
 package com.fruitninjaremote;
 
+import java.io.IOException;
+
+import com.fruitninjaremote2.UDPSend;
+
 import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
@@ -30,7 +34,7 @@ public class AccelerometerDataActivity extends Activity implements SensorEventLi
 		end = start + 10*1000;
 		display = new TextView(this);
 		sm = (SensorManager) getSystemService(SENSOR_SERVICE);
-		mAccelerometer = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+		mAccelerometer = sm.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
 		sm.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 		setContentView(display); 
 	}
@@ -86,6 +90,13 @@ public class AccelerometerDataActivity extends Activity implements SensorEventLi
 	    System.arraycopy(event.values, 0, last_values, 0, 3);
 	    last_timestamp = event.timestamp;
 	  //  if (System.currentTimeMillis()<end) 
+	    try {
+			UDPSend.sendUDPMessage("1 2");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
 	    	display.setText(position[0] + " / " + position[1] + " / " + position[2] + "\n" + event.values[0] + " / " + event.values[1] + " / " + event.values[2] + "\n" + linear_acceleration[0] + " / " + linear_acceleration[1] + " / " + linear_acceleration[2]);
 		
 	}
