@@ -2,8 +2,6 @@ package com.fruitninjaremote;
 
 import java.io.IOException;
 
-import com.fruitninjaremote2.UDPSend;
-
 import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
